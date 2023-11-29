@@ -5,38 +5,41 @@ import os
 import pdb
 w = 1920
 h = 1080
-jsons = os.listdir('./labels')
+label_path='/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side/label/camera'
+label_path_yolo='/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side/label_yolo'
+jsons = os.listdir(label_path)
 type_dict = {
-    "Pedestrian": 0,
-    "Motorcyclist": 1,
-    "Car": 2,
-    "Cyclist": 3,
-    "Van": 4,
-    "Truck": 5,
-    "Bus": 6,
-    "Barrowlist": 7
+    "Pedestrian": 1,
+    "Motorcyclist": 2,
+    "Car": 0,
+    "Cyclist": 2,
+    "Tricyclist": 2,
+    "Van": 0,
+    "Truck": 0,
+    "Bus": 0,
+    "Barrowlist": 2
 }
 for j in tqdm(jsons):
-    j_file = os.path.join('./labels',j)
+    j_file = os.path.join(label_path,j)
     with open(j_file, 'r') as f:
         data = json.load(f)
 
-    txt_file = os.path.join('./txt',j.split('.')[0]+'.txt')
+    txt_file = os.path.join(label_path_yolo,j.split('.')[0]+'.txt')
 
-    # ¿¿txt¿¿¿¿¿¿¿
+    # ï¿½ï¿½txtï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     with open(txt_file, 'w') as f:
         for item in data:
-            # ¿¿type
+            # ï¿½ï¿½type
             type_ = item['type']
             if type_ != 'Trafficcone':
-                # ¿¿2d_box
+                # ï¿½ï¿½2d_box
                 type_ = type_dict[type_]
                 box = item['2d_box']
-                # ¿¿¿¿
-                x = (box['xmin'] + box['xmax']) / (2 * w)
-                y = (box['ymin'] + box['ymax']) / (2 * h)
-                width = (box['xmax'] - box['xmin']) / w
-                height = (box['ymax'] - box['ymin']) / h
-                # ¿¿¿txt¿¿
+                # ï¿½ï¿½ï¿½ï¿½
+                x = (float(box['xmin']) + float(box['xmax'])) / (2 * w)
+                y = (float(box['ymin']) + float(box['ymax'])) / (2 * h)
+                width = (float(box['xmax']) - float(box['xmin'])) / w
+                height = (float(box['ymax']) - float(box['ymin'])) / h
+                # ï¿½ï¿½ï¿½txtï¿½ï¿½
                 f.write(f'{type_} {x:.6f} {y:.6f} {width:.6f} {height:.6f}\n')
 

@@ -3,7 +3,7 @@ from PIL import Image
 from tqdm import tqdm
 
 # images path
-folder_path = 'images'
+folder_path = '/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side-image'
 
 # get all images
 for filename in tqdm(os.listdir(folder_path)):

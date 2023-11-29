@@ -5,7 +5,7 @@ from tqdm import tqdm
 existing_types = set()
 
 # JSON文件的文件夹路径
-folder_path = 'labels'
+folder_path = '/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side/label/camera'
 
 # 获取文件夹中的所有JSON文件
 filenames = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith('.json')]
