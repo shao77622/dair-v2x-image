@@ -5,19 +5,19 @@ import os
 import pdb
 w = 1920
 h = 1080
-label_path='/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side/label/camera'
-label_path_yolo='/Users/shaoben/Documents/dataset/DAIR-V2X/single-infrastructure-side/label_yolo'
+label_path='/Users/shaoben/Documents/dataset/DAIR-V2X/DAIR-V2X-I/single-infrastructure-side-label/label/camera'
+label_path_yolo='/Users/shaoben/Documents/dataset/DAIR-V2X/DAIR-V2X-I/single-infrastructure-side-label/label_yolo'
 jsons = os.listdir(label_path)
 type_dict = {
-    "Pedestrian": 1,
-    "Motorcyclist": 2,
+#    "Pedestrian": 1,
+#    "Motorcyclist": 2,
     "Car": 0,
-    "Cyclist": 2,
-    "Tricyclist": 2,
+#    "Cyclist": 2,
+#    "Tricyclist": 2,
     "Van": 0,
     "Truck": 0,
     "Bus": 0,
-    "Barrowlist": 2
+#    "Barrowlist": 2
 }
 for j in tqdm(jsons):
     j_file = os.path.join(label_path,j)
@@ -31,7 +31,7 @@ for j in tqdm(jsons):
         for item in data:
             # ��type
             type_ = item['type']
-            if type_ != 'Trafficcone':
+            if type_ in type_dict.keys():
                 # ��2d_box
                 type_ = type_dict[type_]
                 box = item['2d_box']
